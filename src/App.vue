@@ -47,6 +47,8 @@ export default {
       teamAScore: 0,
       teamBScore: 0,
       checkerBoard: [],
+      selectedRow: 0,
+      selectedColumn: 0,
     };
   },
   methods: {
@@ -83,15 +85,32 @@ export default {
         return true;
       }
     },
+    resetTurn(){
+       this.checkerBoard.map((n)=>{
+        return {
+          ...n, ...n.isInTurn = false
+        }
+      })
+    },
     selectToCheckPossiblePath(row, col) {
       
       if(this.checkerBoard[((row-1)*8)+(col-1)].isPossiblePath){
         console.log('yes this is possible path')
+        
+        this.checkerBoard[((this.selectedRow-1)*8)+(this.selectedColumn-1)].team = null; 
+        this.checkerBoard[((row-1)*8)+(col-1)].team = this.isTurnTeamA ? 'A' : 'B'; 
+
+
+        this.resetTurn();
+
       }
       
       this.resetPossiblePath();
 
       if(!this.checkerBoard[((row-1)*8)+(col-1)].isInTurn) return; 
+
+      this.selectedRow = row;
+      this.selectedColumn = col;
 
       // console.log(row, col)
       if (this.isTurnTeamA) {
