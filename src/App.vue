@@ -47,8 +47,8 @@ export default {
       teamAScore: 0,
       teamBScore: 0,
       checkerBoard: [],
-      selectedRow: 0,
-      selectedColumn: 0,
+      selectedRow: null,
+      selectedColumn: null,
     };
   },
   methods: {
@@ -60,7 +60,10 @@ export default {
       })
     },
     checkCircleColor(r, c) {
-      if (
+      if(r==this.selectedRow && c == this.selectedColumn){
+        return 'green';
+      }
+      else if (
         this.checkerBoard.some((n) => r == n.r && c == n.c && n.team == "A")
       ) {
         return this.teamAPieceColor;
@@ -91,7 +94,8 @@ export default {
           ...n, ...n.isInTurn = false
         }
       })
-
+      this.selectedRow = null;
+      this.selectedColumn = null;
       this.isTurnTeamA = !this.isTurnTeamA;
       this.decidePossiblePathToPlay();
     },
@@ -103,9 +107,7 @@ export default {
         this.checkerBoard[((this.selectedRow-1)*8)+(this.selectedColumn-1)].team = null; 
         this.checkerBoard[((row-1)*8)+(col-1)].team = this.isTurnTeamA ? 'A' : 'B'; 
 
-
         this.resetTurn();
-
       }
       
       this.resetPossiblePath();
