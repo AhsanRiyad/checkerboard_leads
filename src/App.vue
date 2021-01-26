@@ -1,6 +1,15 @@
  
 <template>
   <v-app>
+    <div class="teamTurnContainer" >
+      <p> Turn for  </p> <div :style="{background: isTurnTeamA ? teamAPieceColor : teamBPieceColor}"></div>
+    </div>
+
+    <div class="scoreBoardContainer">
+      <p>Team A Score : <span v-text="teamAScore"></span></p>
+      <p>Team B Score : <span v-text="teamBScore"></span></p>
+    </div>
+
     <div class="flexContainer" v-for="r in 8" :key="r">
     <div v-for="c in 8" :key="c">
     <div 
@@ -22,6 +31,9 @@ export default {
     teamBBoxColor: '#374360',
     teamAPieceColor: 'red',
     teamBPieceColor: 'yellow',
+    isTurnTeamA: true, 
+    teamAScore: 0,
+    teamBScore: 0,
     checkerBoard: {
       teamA:[],
       teamB:[]
@@ -59,13 +71,30 @@ export default {
       }
     }
   },
-  mounted(){
-
-  }
+  mounted(){}
 };
 </script>
 
-<style>
+<style lang="scss">
+.teamTurnContainer{
+  display: flex;
+  justify-content: center;
+    margin-top: 10px;
+   div{
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+  }
+}
+
+.scoreBoardContainer{
+  text-align: center;
+  p{
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
 .circle{
   height: 60px;
   width: 60px;
