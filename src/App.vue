@@ -49,6 +49,7 @@ export default {
       checkerBoard: [],
       selectedRow: null,
       selectedColumn: null,
+      opponentTeamIndex: null,
     };
   },
   methods: {
@@ -61,7 +62,7 @@ export default {
     },
     checkCircleColor(r, c) {
       if(r==this.selectedRow && c == this.selectedColumn){
-        return 'green';
+        return 'green'
       }
       else if (
         this.checkerBoard.some((n) => r == n.r && c == n.c && n.team == "A")
@@ -94,24 +95,31 @@ export default {
           ...n, ...n.isInTurn = false
         }
       })
-      this.selectedRow = null;
-      this.selectedColumn = null;
+      
       this.isTurnTeamA = !this.isTurnTeamA;
       this.decidePossiblePathToPlay();
     },
     selectToCheckPossiblePath(row, col) {
-      
+
       if(this.checkerBoard[((row-1)*8)+(col-1)].isPossiblePath){
         console.log('yes this is possible path')
         
         this.checkerBoard[((this.selectedRow-1)*8)+(this.selectedColumn-1)].team = null; 
         this.checkerBoard[((row-1)*8)+(col-1)].team = this.isTurnTeamA ? 'A' : 'B'; 
 
+        if(this.opponentTeamIndex != null && this.opponentTeamIndex != -1){
+          this.checkerBoard[this.opponentTeamIndex].team = null;
+          this.isTurnTeamA ? this.teamAScore += this.teamAScore : this.teamBScore += this.teamBScore;
+        }
+
+
         this.resetTurn();
       }
       
       this.resetPossiblePath();
-
+      this.selectedRow = null;
+      this.selectedColumn = null;
+      this.opponentTeamIndex = null;
       if(!this.checkerBoard[((row-1)*8)+(col-1)].isInTurn) return; 
 
       this.selectedRow = row;
@@ -127,6 +135,18 @@ export default {
 
          const index1 =  this.checkerBoard.findIndex(n => (n.r == row+1 && n.c == col-1 && n.team == null))
          const index2 =  this.checkerBoard.findIndex(n => (n.r == row+1 && n.c == col+1 && n.team == null))
+         
+         this.opponentTeamIndex =  this.checkerBoard.findIndex(n => (n.r == row+1 && n.c == col-1 && n.team == 'B'))
+          console.log('opponent team' ,  this.opponentTeamIndex)
+          if(this.opponentTeamIndex != -1 && this.opponentTeamIndex != null){
+            console.log('got inside ')
+            const indexOfNextMove = this.checkerBoard.findIndex(n => (n.r == row+2 && n.c == col-2 && n.team == null))
+            console.log('next move index ', indexOfNextMove)
+             if(indexOfNextMove != -1){
+            this.checkerBoard[indexOfNextMove].isPossiblePath = true;
+          }
+          }
+
           if(index1 != -1){
             this.checkerBoard[index1].isPossiblePath = true;
           }
