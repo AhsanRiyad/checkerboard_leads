@@ -150,13 +150,14 @@ export default {
 
 
           if(this.checkerBoard[this.opponentTeamIndex].r != row){
+            if(this.isTurnTeamA){
+              this.teamAScore = this.teamAScore + 1;
+            }else{
+              this.teamBScore = this.teamBScore + 1;
+            }
             this.checkerBoard[this.opponentTeamIndex].team = null;
-
           }
  
-
-
-          this.isTurnTeamA ? this.teamAScore += this.teamAScore : this.teamBScore += this.teamBScore;
         }
 
 
