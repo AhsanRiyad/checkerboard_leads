@@ -57,12 +57,26 @@ export default {
         return true;
       }
     },
+    checkPathTeamB(row,col){
+      let index = this.checkerBoard.findIndex( n=> (n.r == row-1 && n.c == col+1 && n.team == null) || (n.r == row-1 && n.c == col-1 && n.team == null) )
+
+      if(index == -1){
+        return false;
+      }else{
+        this.checkerBoard.find(n => n.r == row && n.c == col).isInTurn = true;
+        // this.checkerBoard[index].isInTurn = true;
+        return true;
+      }
+    },
     decidePossiblePathToPlay(){
       if(this.isTurnTeamA){
          let items =  this.checkerBoard.filter(n=>n.team=='A')
          let isInTheTurn = items.filter( n => this.checkPathTeamA(n.r, n.c) )
          console.log(  isInTheTurn);
-         
+      }else{
+         let items =  this.checkerBoard.filter(n=>n.team=='B')
+         let isInTheTurn = items.filter( n => this.checkPathTeamB(n.r, n.c) )
+         console.log(  isInTheTurn);
       }
     },
     isMyTurn(row,col){
