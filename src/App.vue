@@ -75,11 +75,44 @@ export default {
       }
     },
     checkPathTeamA(row, col) {
-      let index = this.checkerBoard.findIndex(
+      const index = this.checkerBoard.findIndex(
         (n) =>
           (n.r == row + 1 && n.c == col - 1 && n.team == null) ||
           (n.r == row + 1 && n.c == col + 1 && n.team == null)
       );
+      const opp1 = this.checkerBoard.findIndex(
+        (n) =>
+          (n.r == row + 1 && n.c == col - 1 && n.team == 'B')
+      );
+
+      if(opp1 !=-1){
+        const opp11 = this.checkerBoard.findIndex(
+        (n) =>
+          (n.r == row + 2 && n.c == col - 2 && n.team == null)
+          );
+        if(opp11 != -1){
+          this.checkerBoard.find((n) => n.r == row && n.c == col).isInTurn = true;
+          return true;
+        }
+      }
+      const opp2 = this.checkerBoard.findIndex(
+        (n) =>
+          (n.r == row + 1 && n.c == col + 1 && n.team == 'B')
+      );
+
+      if(opp2 !=-1){
+        
+         const opp22 = this.checkerBoard.findIndex(
+        (n) =>
+          (n.r == row + 2 && n.c == col + 2 && n.team == null)
+      );
+        if(opp22 != -1){
+          this.checkerBoard.find((n) => n.r == row && n.c == col).isInTurn = true;
+          return true;
+        }
+      }
+
+     
 
       if (index == -1) {
         return false;
@@ -229,6 +262,39 @@ export default {
           (n.r == row - 1 && n.c == col + 1 && n.team == null) ||
           (n.r == row - 1 && n.c == col - 1 && n.team == null)
       );
+
+         const opp1 = this.checkerBoard.findIndex(
+        (n) =>
+          (n.r == row - 1 && n.c == col + 1 && n.team == 'A')
+      );
+
+      if(opp1 !=-1){
+        const opp11 = this.checkerBoard.findIndex(
+        (n) =>
+          (n.r == row - 2 && n.c == col + 2 && n.team == null)
+          );
+        if(opp11 != -1){
+          this.checkerBoard.find((n) => n.r == row && n.c == col).isInTurn = true;
+          return true;
+        }
+      }
+      const opp2 = this.checkerBoard.findIndex(
+        (n) =>
+          (n.r == row - 1 && n.c == col - 1 && n.team == 'A')
+      );
+
+      if(opp2 !=-1){
+        
+         const opp22 = this.checkerBoard.findIndex(
+        (n) =>
+          (n.r == row - 2 && n.c == col - 2 && n.team == null)
+      );
+        if(opp22 != -1){
+          this.checkerBoard.find((n) => n.r == row && n.c == col).isInTurn = true;
+          return true;
+        }
+      }
+
 
       if (index == -1) {
         return false;
