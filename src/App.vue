@@ -15,7 +15,7 @@
     <div 
     :style="{backgroundColor: ((r+c)%2) == 0 ? teamABoxColor : teamBBoxColor }"
     v-bind:class="[ 'box'  ]">
-      <div class="circle" :style="{ backgroundColor: checkCircleColor(r,c) }"></div>
+      <div class="circle" :class="isMyTurn(r,c) ? 'boxShadow' : ''" :style="{ backgroundColor: checkCircleColor(r,c)  }"></div>
     </div>
     </div>
     </div>
@@ -31,51 +31,95 @@ export default {
     teamBBoxColor: '#374360',
     teamAPieceColor: 'red',
     teamBPieceColor: 'yellow',
-    isTurnTeamA: true, 
+    isTurnTeamA: 1, 
     teamAScore: 0,
     teamBScore: 0,
-    checkerBoard: {
-      teamA:[],
-      teamB:[]
-    },
+    checkerBoard: [],
     }
   },
   methods:{
     checkCircleColor(r, c){
-      if(this.checkerBoard.teamA.some((n)=>r==n.r&&c==n.c)){
+      if(this.checkerBoard.some(n=>r==n.r&&c==n.c&&n.team=='A')){
         return this.teamAPieceColor;
-      }else if(this.checkerBoard.teamB.some((n)=>r==n.r&&c==n.c)){
+      }else if(this.checkerBoard.some(n=>r==n.r&&c==n.c&&n.team=='B')){
         return this.teamBPieceColor;
       }
-    
+    },
+    checkPathTeamA(row,col){
+      let index = this.checkerBoard.findIndex( n=> (n.r == row+1 && n.c == col-1 && n.team == null) || (n.r == row+1 && n.c == col+1 && n.team == null) )
+
+
+      if(index == -1){
+        return false;
+      }else{
+        this.checkerBoard.find(n => n.r == row && n.c == col).isInTurn = true;
+        // this.checkerBoard[index].isInTurn = true;
+        return true;
+      }
+    },
+    decidePossiblePathToPlay(){
+      if(this.isTurnTeamA){
+         let items =  this.checkerBoard.filter(n=>n.team=='A')
+         let isInTheTurn = items.filter( n => this.checkPathTeamA(n.r, n.c) )
+         console.log(  isInTheTurn);
+         
+      }
+    },
+    isMyTurn(row,col){
+      return this.checkerBoard.some(n=>n.r == row && n.c == col && n.isInTurn)
     }
   },
   created(){
+    //setup the piece
     let r, c;
     for( r=1; r<9; r++){
       for(c=1; c<9; c++){
         if(r < 4 && ((r+c)%2 == 0) ){
-          this.checkerBoard.teamA.push({
+          this.checkerBoard.push({
             r: r,
             c: c,
-            team: 'A'
+            team: 'A',
+            isInTurn: false,
           });
         } else if(r > 5 && ((r+c)%2 == 0) ){
-          console.log(r)
-          this.checkerBoard.teamB.push({
+          // console.log(r)
+          this.checkerBoard.push({
             r: r,
             c: c,
-            team: 'B'
+            team: 'B',
+            isInTurn: false,
           });
+        }else{
+          this.checkerBoard.push({
+            r: r,
+            c: c,
+            team: null,
+            isInTurn: false,
+          })
         }
       }
     }
+
+    //decide the first turn
+    this.isTurnTeamA = Math.floor(Math.random() * 2)
+
+    //call the path 
+    this.decidePossiblePathToPlay()
+
+
   },
   mounted(){}
 };
 </script>
 
 <style lang="scss">
+.boxShadow{
+  -webkit-box-shadow: 0px 5px 42px 14px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 5px 42px 14px rgba(0,0,0,0.75);
+box-shadow: 0px 5px 42px 14px rgba(0,0,0,0.75);
+
+}
+
 .teamTurnContainer{
   display: flex;
   justify-content: center;
