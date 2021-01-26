@@ -84,7 +84,14 @@ export default {
       }
     },
     selectToCheckPossiblePath(row, col) {
+      
+      if(this.checkerBoard[((row-1)*8)+(col-1)].isPossiblePath){
+        console.log('yes this is possible path')
+      }
+      
       this.resetPossiblePath();
+
+      if(!this.checkerBoard[((row-1)*8)+(col-1)].isInTurn) return; 
 
       // console.log(row, col)
       if (this.isTurnTeamA) {
@@ -92,6 +99,7 @@ export default {
          a.map((n)=>{return {
          ...n, ...n.isPossiblePath = true
          }}) */
+
 
          const index1 =  this.checkerBoard.findIndex(n => (n.r == row+1 && n.c == col-1 && n.team == null))
          const index2 =  this.checkerBoard.findIndex(n => (n.r == row+1 && n.c == col+1 && n.team == null))
@@ -104,7 +112,7 @@ export default {
 
           console.log(index1)
           console.log(index2)
-          console.log(this.checkerBoard)
+          // console.log(this.checkerBoard)
 
         /* const a = this.checkerBoard.map((n) => {
           if (
@@ -122,6 +130,7 @@ export default {
         this.checkerBoard = [...a]
         console.log(a); */
       }else{
+
         const index1 =  this.checkerBoard.findIndex(n => (n.r == row-1 && n.c == col+1 && n.team == null))
          const index2 =  this.checkerBoard.findIndex(n => (n.r == row-1 && n.c == col-1 && n.team == null))
           if(index1 != -1){
