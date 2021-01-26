@@ -91,6 +91,9 @@ export default {
           ...n, ...n.isInTurn = false
         }
       })
+
+      this.isTurnTeamA = !this.isTurnTeamA;
+      this.decidePossiblePathToPlay();
     },
     selectToCheckPossiblePath(row, col) {
       
