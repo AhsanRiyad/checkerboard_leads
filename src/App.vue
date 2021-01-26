@@ -137,11 +137,25 @@ export default {
       if(this.checkerBoard[((row-1)*8)+(col-1)].isPossiblePath){
         console.log('yes this is possible path')
         
-        this.checkerBoard[((this.selectedRow-1)*8)+(this.selectedColumn-1)].team = null; 
+
+          this.checkerBoard[((this.selectedRow-1)*8)+(this.selectedColumn-1)].team = null; 
         this.checkerBoard[((row-1)*8)+(col-1)].team = this.isTurnTeamA ? 'A' : 'B'; 
 
         if(this.opponentTeamIndex != null && this.opponentTeamIndex != -1){
-          this.checkerBoard[this.opponentTeamIndex].team = null;
+
+            console.log('selected row' , this.selectedRow)
+            console.log('this row' , row)
+            console.log('selected col' , this.selectedColumn)
+            console.log('this col' , col)
+
+
+          if(this.checkerBoard[this.opponentTeamIndex].r != row){
+            this.checkerBoard[this.opponentTeamIndex].team = null;
+
+          }
+ 
+
+
           this.isTurnTeamA ? this.teamAScore += this.teamAScore : this.teamBScore += this.teamBScore;
         }
 
