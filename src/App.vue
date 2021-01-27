@@ -145,7 +145,6 @@ export default {
     selectToCheckPossiblePath(row, col) {
 
       if(this.checkerBoard[((row-1)*8)+(col-1)].isPossiblePath){
-        console.log('yes this is possible path')
         
 
           this.checkerBoard[((this.selectedRow-1)*8)+(this.selectedColumn-1)].team = null; 
@@ -153,10 +152,6 @@ export default {
 
         if(this.opponentTeamIndex != null && this.opponentTeamIndex != -1){
 
-            console.log('selected row' , this.selectedRow)
-            console.log('this row' , row)
-            console.log('selected col' , this.selectedColumn)
-            console.log('this col' , col)
 
 
           if(this.checkerBoard[this.opponentTeamIndex].r != row){
@@ -183,34 +178,24 @@ export default {
       this.selectedRow = row;
       this.selectedColumn = col;
 
-      // console.log(row, col)
       if (this.isTurnTeamA) {
-       /*  const a  = this.checkerBoard.filter( n => (n.r == row+1 && n.c == col-1 && n.team == null) || (n.r == row+1 && n.c == col+1 && n.team == null)  );
-         a.map((n)=>{return {
-         ...n, ...n.isPossiblePath = true
-         }}) */
-
+    
 
          const index1 =  this.checkerBoard.findIndex(n => (n.r == row+1 && n.c == col-1 && n.team == null))
          const index2 =  this.checkerBoard.findIndex(n => (n.r == row+1 && n.c == col+1 && n.team == null))
          
          const opponentTeamIndex1 =  this.checkerBoard.findIndex(n => (n.r == row+1 && n.c == col-1 && n.team == 'B'))
          const opponentTeamIndex2 =  this.checkerBoard.findIndex(n => (n.r == row+1 && n.c == col+1 && n.team == 'B'))
-          console.log('opponent team' ,  this.opponentTeamIndex1)
           if(opponentTeamIndex1 != -1 ){
             this.opponentTeamIndex = opponentTeamIndex1;
-            console.log('got inside ')
             const indexOfNextMove = this.checkerBoard.findIndex(n => (n.r == row+2 && n.c == col-2 && n.team == null))
-            console.log('next move index ', indexOfNextMove)
              if(indexOfNextMove != -1){
                this.checkerBoard[indexOfNextMove].isPossiblePath = true;
           }
           }
           if(opponentTeamIndex2 != -1 ){
             this.opponentTeamIndex = opponentTeamIndex2;
-            console.log('got inside ')
             const indexOfNextMove = this.checkerBoard.findIndex(n => (n.r == row+2 && n.c == col+2 && n.team == null))
-            console.log('next move index ', indexOfNextMove)
              if(indexOfNextMove != -1){
             this.checkerBoard[indexOfNextMove].isPossiblePath = true;
           }
@@ -225,25 +210,8 @@ export default {
             this.checkerBoard[index2].isPossiblePath = true;
           }
 
-          console.log(index1)
-          console.log(index2)
-          // console.log(this.checkerBoard)
 
-        /* const a = this.checkerBoard.map((n) => {
-          if (
-            (n.r == row + 1 && n.c == col - 1 && n.team == null) ||
-            (n.r == row + 1 && n.c == col + 1 && n.team == null)
-          ) {
-            return {
-              ...n,
-              ...(n.isPossiblePath = true),
-            };
-          }else{
-            return n;
-          }
-        });
-        this.checkerBoard = [...a]
-        console.log(a); */
+       
       }else{
 
         const index1 =  this.checkerBoard.findIndex(n => (n.r == row-1 && n.c == col+1 && n.team == null))
@@ -252,21 +220,16 @@ export default {
 
             const opponentTeamIndex1 =  this.checkerBoard.findIndex(n => (n.r == row-1 && n.c == col+1 && n.team == 'A'))
          const opponentTeamIndex2 =  this.checkerBoard.findIndex(n => (n.r == row-1 && n.c == col-1 && n.team == 'A'))
-          console.log('opponent team' ,  this.opponentTeamIndex1)
           if(opponentTeamIndex1 != -1 ){
             this.opponentTeamIndex = opponentTeamIndex1;
-            console.log('got inside ')
             const indexOfNextMove = this.checkerBoard.findIndex(n => (n.r == row-1-1 && n.c == col+1+1 && n.team == null))
-            console.log('next move index ', indexOfNextMove)
              if(indexOfNextMove != -1){
                this.checkerBoard[indexOfNextMove].isPossiblePath = true;
           }
           }
           if(opponentTeamIndex2 != -1 ){
             this.opponentTeamIndex = opponentTeamIndex2;
-            console.log('got inside ')
             const indexOfNextMove = this.checkerBoard.findIndex(n => (n.r == row-1-1 && n.c == col-1-1 && n.team == null))
-            console.log('next move index ', indexOfNextMove)
              if(indexOfNextMove != -1){
             this.checkerBoard[indexOfNextMove].isPossiblePath = true;
           }
@@ -332,12 +295,10 @@ export default {
     decidePossiblePathToPlay() {
       if (this.isTurnTeamA) {
         const items = this.checkerBoard.filter((n) => n.team == "A");
-        const isInTheTurn = items.filter((n) => this.checkPathTeamA(n.r, n.c));
-        console.log(isInTheTurn);
+        items.filter((n) => this.checkPathTeamA(n.r, n.c));
       } else {
         const items = this.checkerBoard.filter((n) => n.team == "B");
-        const isInTheTurn = items.filter((n) => this.checkPathTeamB(n.r, n.c));
-        console.log(isInTheTurn);
+        items.filter((n) => this.checkPathTeamB(n.r, n.c));
       }
     },
     isMyTurn(row, col) {
@@ -346,11 +307,9 @@ export default {
       );
     },
     isPossiblePath(row, col) {
-      console.log('is possible path')
       const a = this.checkerBoard.some(
         (n) => n.row == row && n.col == col && n.isPossiblePath
       );
-      console.log(a)
       return a;
     },
   },
@@ -368,7 +327,6 @@ export default {
             isPossiblePath: false,
           });
         } else if (r > 5 && (r + c) % 2 == 0) {
-          // console.log(r)
           this.checkerBoard.push({
             r: r,
             c: c,
