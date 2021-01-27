@@ -12,6 +12,15 @@
       <p>Team A Score : <span v-text="teamAScore"></span></p>
       <p>Team B Score : <span v-text="teamBScore"></span></p>
     </div>
+    
+    <div class="selectColorContainer">
+      <!-- <v-btn color="red" class="white--text">Team A piece color</v-btn>
+      <v-btn color="red" class="white--text">Team A block color</v-btn>
+      <v-btn color="red" class="white--text">Team B piece color</v-btn>
+      <v-btn color="red" class="white--text">Team B block color</v-btn> -->
+
+    </div>
+
 
     <div class="flexContainer" v-for="(r, i) in 8" :key="i">
       <div v-for="(c, ci) in 8" :key="ci">
@@ -35,6 +44,7 @@
 </template>
 
 <script>
+import './styles/checkers.scss';
 export default {
   name: "CheckerBoard",
   data() {
@@ -387,56 +397,3 @@ export default {
   mounted() {},
 };
 </script>
-
-<style lang="scss">
-.boxShadow {
-  -webkit-box-shadow: 0px 5px 42px 14px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 5px 42px 14px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 5px 42px 14px rgba(0, 0, 0, 0.75);
-}
-
-.teamTurnContainer {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  div {
-    height: 30px;
-    width: 30px;
-    margin-left: 10px;
-  }
-}
-
-.scoreBoardContainer {
-  text-align: center;
-  p {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-}
-
-.circle {
-  height: 60px;
-  width: 60px;
-  /* background: green; */
-  border-radius: 30px;
-  margin: auto;
-  margin-top: 20px;
-}
-.box {
-  height: 100px;
-  width: 100px;
-  border: 1px solid white;
-}
-.blackBox {
-  background-color: black;
-}
-.greyBox {
-  background-color: grey;
-}
-.flexContainer {
-  display: flex;
-  width: 80%;
-  margin: 0 auto;
-  justify-content: center;
-}
-</style>
