@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$primaryFont: 'Raleway',
+sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// Theme front end colors
+$primaryColor: #365899;
+$secondaryColor: #2166b6;
+$tarsiaryColor: #d6efdc;
+
+
+//resume
+$titleColor: #002157;
+
+
+//==============media query variable ============
+$desktop: '(min-width: 1400px)';
+$desktopTab: '(min-width: 768px)';
+$desktopLgToMobile: '(max-width: 1399px)';
+$laptop: '(max-width: 1199px)';
+$tab: 'only screen and (max-width: 991px)';
+$mobile: 'only screen and (max-width: 767px)';
+$mobile-sm: 'only screen and (max-width: 424px)';
+$mobile-375: 'only screen and (max-width: 375px)';
+$mobileLandScape: 'only screen and (orientation: landscape) and (max-width: 767px)';
+
+@mixin flex-common-feature {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@mixin defaultResume-title-text {
+  font-size: pxToVw(30) !important;
+  color: $titleColor;
+  font-weight: bold;
+  @include mobile(){
+    font-size: pxToMobVw(22) !important;
+  }
+}
+
+@mixin desktop() {
+  @media screen and (max-width: 1400px) {
+    @content
+  }
+}
+
+;
+
+@mixin desktopTab() {
+  @media screen and (max-width: 768px) {
+    @content
+  }
+}
+
+;
+
+@mixin desktopLgToMobile() {
+  @media screen and (max-width: 1399px) {
+    @content
+  }
+}
+
+;
+
+@mixin laptop() {
+  @media screen and (max-width: 1199px) {
+    @content
+  }
+}
+
+;
+
+@mixin tab() {
+  @media only screen and (max-width: 991px) {
+    @content
+  }
+}
+
+;
+
+@mixin mobile() {
+  @media only screen and (max-width: 767px) {
+    @content
+  }
+}
+
+;
+
+@mixin mobileSM() {
+  @media only screen and (max-width: 424px) {
+    @content
+  }
+};
+
+
+@mixin mobile375() {
+  @media only screen and (max-width: 375px) {
+    @content
+  }
+};
+
+@mixin mobileLandScape() {
+  @media only screen and (orientation: landscape) and (max-width: 767px) {
+    @content
+  }
+};
+
+
+@mixin mobileSearch() {
+
+  @media screen and (max-width: 995px),
+  screen and (max-height: 500px) {
+    @content
+  }
+}
+
+
+
+@function pxToVw($val) {
+  $factor: 0.0566;
+  @return #{$val * $factor}vw;
+}
+
+@function pxToVh($val) {
+  $factor: 0.1;
+  @return #{$val * $factor}vh;
+}
+
+@function toVw($val) {
+  $factor: 1.415;
+  @return #{$val * $factor}vw;
+}
+
+@function toVh($val) {
+  $factor: 2.5;
+  @return #{$val * $factor}vh;
+}
+
+@function pxToMobVw($val, $notPx:false) {
+  $factor: 0.20;
+
+  @if ($notPx==true) {
+    $factor: 3;
+  }
+
+  @return #{$val * $factor}vw;
+}
+
+@function pxToMobVh($val, $notPx:false) {
+  $factor: 0.318;
+
+  @if ($notPx==true) {
+    $factor: 5.3;
+  }
+
+  @return #{$val * $factor}vh;
+}
+
+*,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+ul li {
+  list-style: none;
+}
+
+.ja__headline {
+  font-size: pxToVw(35);
+
+  @include mobile {
+    font-size: pxToMobVw(30);
+  }
+}

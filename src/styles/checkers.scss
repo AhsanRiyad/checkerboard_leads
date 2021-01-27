@@ -1,3 +1,5 @@
+@import './_baseVariables.scss';
+
 .boxShadow {
     -webkit-box-shadow: 0px 5px 42px 14px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 5px 42px 14px rgba(0, 0, 0, 0.75);
@@ -22,8 +24,7 @@
 
 .scoreBoardContainer {
     text-align: center;
-
-    p {
+    p{
         margin-top: 0;
         margin-bottom: 0;
     }
@@ -36,12 +37,25 @@
     border-radius: 30px;
     margin: auto;
     margin-top: 20px;
+
+     @include mobile() {
+         height: 25px;
+         width: 25px;
+         /* background: green; */
+         border-radius: 20px;
+         margin: auto;
+         margin-top: 5px;
+     }
 }
 
 .box {
     height: 100px;
     width: 100px;
     border: 1px solid white;
+    @include mobile(){
+        height: 45px;
+        width: 45px;
+    }
 }
 
 .blackBox {
@@ -57,4 +71,10 @@
     width: 80%;
     margin: 0 auto;
     justify-content: center;
+    @include tab(){
+        width: 98%;
+    }
+    @include mobile(){
+        width: 100%;
+    }
 }
