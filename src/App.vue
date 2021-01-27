@@ -9,8 +9,8 @@
     </div>
 
     <div class="scoreBoardContainer">
-      <p>Team A Score : <span v-text="teamAScore"></span></p>
-      <p>Team B Score : <span v-text="teamBScore"></span></p>
+      <p >Team  <span :style="{backgroundColor: teamAPieceColor, padding: '3px'}" > A </span>  Score : <span v-text="teamAScore"></span></p>
+      <p>Team <span :style="{backgroundColor: teamBPieceColor, padding: '3px'}" > B </span> Score : <span v-text="teamBScore"></span></p>
     </div>
     
     <div class="selectColorContainer">
